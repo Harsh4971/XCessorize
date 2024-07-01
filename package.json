@@ -1,4 +1,5 @@
 {
+  "homepage": "https://Harsh4971.github.io/XCessorize",
   "name": "pose-babylon",
   "version": "0.6.5",
   "private": true,
@@ -30,6 +31,8 @@
   },
   "scripts": {
     "start": "webpack serve --mode=development",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start:https": "webpack serve --mode=development --https",
     "build": "webpack build --mode=production",
     "serve": "serve -p 3000 -s build",

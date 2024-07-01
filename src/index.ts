@@ -18,7 +18,9 @@ let rear = urlParams.has("rear");
 async function main() {
 
   //Initialize cloth
-  var cloth = 'hoodie.glb';
+  var cloth = 'coat.glb';
+
+  let currentOutfitIndex = 0; // Keeps track of the current outfit index
 
   // Renderer
   const container = document.getElementById("root");
@@ -35,10 +37,17 @@ async function main() {
   const women = document.getElementById('women');
   const men = document.getElementById('men');
 
+
   if (women){
     console.log("Women found");
     women.onclick = async () => {
       gender = 'female';
+      selectCoat();
+      currentOutfitIndex = 0;
+      if (gender=='female'){
+        women.classList.add('active');
+        men.classList.remove('active');
+      }
       console.log("Women Clicked");
 
       //Hiding Outfit
@@ -54,6 +63,12 @@ async function main() {
     console.log("Men found");
     men.onclick = async () => {
       gender = 'male';
+      selectAdidasJacket();
+      currentOutfitIndex = 0;
+      if (gender=='male'){
+        men.classList.add('active');
+        women.classList.remove('active');
+      }
       console.log("Men Clicked");
 
       //Hiding Outfit
@@ -95,138 +110,597 @@ async function main() {
   const macys_outfit = document.getElementById('macys-outfit') as HTMLButtonElement | null;
   const vest_puffer = document.getElementById('vest-puffer') as HTMLButtonElement | null;
 
-  if (coat){
-    console.log("coat found");
-    coat.onclick = async () => {
-      // const currentGender = gender;
-      // cloth = currentGender === 'female' ? 'coat.glb' : 'classic_outfit_M.glb';
-      cloth = 'coat.glb';
-      renderer.setModel(cloth);
-      console.log("coat");
-    };
-  }
-  else{
-    console.log("coat not found");
+  hideOutfits();
+
+  //Initialize with female outfit
+  const maleOutfits = [adidas_jacket, adidas_hoodie, classic_outfit]
+  const femaleOutfits = [coat, shein, bomber_shein, bag, hogwarts_uniform, macys_outfit, vest_puffer]
+  showOutfits(femaleOutfits);
+  women.classList.add('active');
+
+
+  function selectCoat() {
+    if (coat){
+      console.log("coat found");
+      // coat.onclick = async () => {
+        // const currentGender = gender;
+        // cloth = currentGender === 'female' ? 'coat.glb' : 'classic_outfit_M.glb';
+        cloth = 'coat.glb';
+        renderer.setModel(cloth);
+        const hasSizes = coat.dataset.hasSizes === 'true';
+        if (!hasSizes){
+          const sizeCheck = document.getElementById('sizes');
+          if (sizeCheck)sizeCheck.style.display = 'none';
+        // }
+        console.log("coat");
+      };
+    }
+    else{
+      console.log("coat not found");
+    }
   }
 
-  if (shein){
-    console.log("shein found");
-    shein.onclick = async () => {
-      // const currentGender = gender;
-      // cloth = currentGender === 'male' ? 'shein.glb' : 'bomber_shein_m.glb';
-      cloth = 'shein.glb';
-      renderer.setModel(cloth);
-      console.log("shein");
-    };
-  }
-  else{
-    console.log("shein not found");
-  }
-
-  if (bomber_shein){
-    console.log("bomber_shein found");
-    bomber_shein.onclick = async () => {
-      cloth = 'bomber_shein_m.glb';
-      renderer.setModel(cloth);
-      console.log("bomber_shein");
-    };
-  }
-  else{
-    console.log("bomber_shein not found");
+  function selectShein() {
+    if (shein){
+      console.log("shein found");
+      // shein.onclick = async () => {
+        // const currentGender = gender;
+        // cloth = currentGender === 'male' ? 'shein.glb' : 'bomber_shein_m.glb';
+        cloth = 'shein.glb';
+        renderer.setModel(cloth);
+        const hasSizes = shein.dataset.hasSizes === 'true';
+        if (!hasSizes){
+          const sizeCheck = document.getElementById('sizes');
+          if (sizeCheck)sizeCheck.style.display = 'none';
+        }
+        console.log("shein");
+      // };
+    }
+    else{
+      console.log("shein not found");
+    }
   }
 
-  if (adidas_jacket){
-    console.log("adidas_jacket found");
-    adidas_jacket.onclick = async () => {
-      cloth = 'adidas_jacket_m.glb';
-      renderer.setModel(cloth);
-      console.log("adidas_jacket");
-    };
-  }
-  else{
-    console.log("adidas_jacket not found");
-  }
-
-  if (adidas_hoodie){
-    console.log("adidas_hoodie found");
-    adidas_hoodie.onclick = async () => {
-      const hasSizes = adidas_hoodie.dataset.hasSizes === 'true';
-      if (hasSizes){
-        console.log("Adidas Hoodie has size");
-      }
-      cloth = 'adidas_hoodie_m.glb';
-      renderer.setModel(cloth);
-      console.log("adidas_hoodie");
-    };
-  }
-  else{
-    console.log("adidas_hoodie not found");
-  }
-
-  if (bag){
-    console.log("bag found");
-    bag.onclick = async () => {
-      cloth = 'bag.glb';
-      renderer.setModel(cloth);
-      console.log("bag");
-    };
-  }
-  else{
-    console.log("bag not found");
-  }
-
-  if (classic_outfit){
-    console.log("classic_outfit found");
-    classic_outfit.onclick = async () => {
-      const hasSizes = classic_outfit.dataset.hasSizes === 'true';
-      if (hasSizes){
-        console.log("Classic Outfit has size");
-      }
-      cloth = 'classic_outfit_M.glb';
-      renderer.setModel(cloth);
-      console.log("classic_outfit");
-    };
-  }
-  else{
-    console.log("classic_outfit not found");
-  }
-
-  if (hogwarts_uniform){
-    console.log("hogwarts_uniform found");
-    hogwarts_uniform.onclick = async () => {
-      cloth = 'hogwarts_uniform_girl.glb';
-      renderer.setModel(cloth);
-      console.log("hogwarts_uniform_girl");
-    };
-  }
-  else{
-    console.log("hogwarts_uniform not found");
-  }
-
-  if (macys_outfit){
-    console.log("macys_outfit found");
-    macys_outfit.onclick = async () => {
-      cloth = 'MacysOutfit_m.glb';
-      renderer.setModel(cloth);
-      console.log("macys_outfit");
-    };
-  }
-  else{
-    console.log("macys_outfit not found");
-  }
-
-  if (vest_puffer){
-    console.log("vest_puffer found");
-    vest_puffer.onclick = async () => {
-      cloth = 'Vest_Puffer_Blue.glb';
-      renderer.setModel(cloth);
-      console.log("vest_puffer");
-    };
-  }
-  else{
-    console.log("vest_puffer not found");
+  function selectBomberShein() {
+    if (bomber_shein){
+      console.log("bomber_shein found");
+      // bomber_shein.onclick = async () => {
+        const hasSizes = bomber_shein.dataset.hasSizes === 'true';
+        cloth = 'bomber_shein_m.glb';
+        const m_size = document.getElementById('m-size');
+        const xl_size = document.getElementById('xl-size');
+        m_size.classList.add('active');
+        xl_size.classList.remove('active');
+        renderer.setModel(cloth);
+        if (hasSizes){
+          console.log("Classic Outfit has size");
+          const sizeCheck = document.getElementById('sizes');
+          if (sizeCheck)sizeCheck.style.display = 'flex';
+          const s_size = document.getElementById('s-size');
+          if (s_size){
+            s_size.style.display = 'none';
+          }
+          if (m_size){
+            m_size.style.display = 'flex';
+            m_size.onclick = async () => {
+              cloth = 'bomber_shein_m.glb';
+              m_size.classList.add('active');
+              xl_size.classList.remove('active');
+              renderer.setModel(cloth);
+            }
+          }
+          const l_size = document.getElementById('l-size');
+          if (l_size){
+            l_size.style.display = 'none';
+          }
+          if (xl_size){
+            xl_size.style.display = 'flex';
+            xl_size.onclick = async () => {
+              cloth = 'bomber_shein_xl.glb';
+              xl_size.classList.add('active');
+              m_size.classList.remove('active');
+              renderer.setModel(cloth);
+            }
+          }
+        }
+        else{
+          const sizeCheck = document.getElementById('sizes');
+          if (sizeCheck)sizeCheck.style.display = 'none';
+        }
+        console.log("bomber_shein");
+      // };
+    }
+    else{
+      console.log("bomber_shein not found");
+    }
   }
   
+  function selectAdidasJacket() {
+    if (adidas_jacket){
+      console.log("adidas_jacket found");
+      // adidas_jacket.onclick = async () => {
+        const hasSizes = adidas_jacket.dataset.hasSizes === 'true';
+        cloth = 'adidas_jacket_m.glb';
+        const xl_size = document.getElementById('xl-size');
+        const m_size = document.getElementById('m-size');
+        m_size.classList.add('active');
+        xl_size.classList.remove('active');
+        renderer.setModel(cloth);
+        if (hasSizes){
+          console.log("Classic Outfit has size");
+          const sizeCheck = document.getElementById('sizes');
+          if (sizeCheck)sizeCheck.style.display = 'flex';
+          const s_size = document.getElementById('s-size');
+          if (s_size){
+            s_size.style.display = 'none';
+          }
+          if (m_size){
+            m_size.style.display = 'flex';
+            m_size.onclick = async () => {
+              cloth = 'adidas_jacket_m.glb';
+              m_size.classList.add('active');
+              xl_size.classList.remove('active');
+              renderer.setModel(cloth);
+            }
+          }
+          const l_size = document.getElementById('l-size');
+          if (l_size){
+            l_size.style.display = 'none';
+          }
+          if (xl_size){
+            xl_size.style.display = 'flex';
+            xl_size.onclick = async () => {
+              cloth = 'adidas_jacket_xl.glb';
+              xl_size.classList.add('active');
+              m_size.classList.remove('active');
+              renderer.setModel(cloth);
+            }
+          }
+        }
+        else{
+          const sizeCheck = document.getElementById('sizes');
+          if (sizeCheck)sizeCheck.style.display = 'none';
+        }
+        console.log("adidas_jacket");
+      // };
+    }
+    else{
+      console.log("adidas_jacket not found");
+    }
+  }
+  
+  function selectAdidasHoodie() {
+    if (adidas_hoodie){
+      console.log("adidas_hoodie found");
+      // adidas_hoodie.onclick = async () => {
+        const hasSizes = adidas_hoodie.dataset.hasSizes === 'true';
+        cloth = 'adidas_hoodie_m.glb';
+        const m_size = document.getElementById('m-size');
+        const xl_size = document.getElementById('xl-size');
+        m_size.classList.add('active');
+        xl_size.classList.remove('active');
+        renderer.setModel(cloth);
+        if (hasSizes){
+          console.log("Adidas Hoodie has size");
+          const sizeCheck = document.getElementById('sizes');
+          if (sizeCheck)sizeCheck.style.display = 'flex';
+          const s_size = document.getElementById('s-size');
+          if (s_size){
+            s_size.style.display = 'none';
+          }
+          if (m_size){
+            m_size.style.display = 'flex';
+            m_size.onclick = async () => {
+              cloth = 'adidas_hoodie_m.glb';
+              m_size.classList.add('active');
+              xl_size.classList.remove('active');
+              renderer.setModel(cloth);
+            }
+          }
+          const l_size = document.getElementById('l-size');
+          if (l_size){
+            l_size.style.display = 'none';
+          }
+          if (xl_size){
+            xl_size.style.display = 'flex';
+            xl_size.onclick = async () => {
+              cloth = 'adidas_hoodie_xl.glb';
+              xl_size.classList.add('active');
+              m_size.classList.remove('active');
+              renderer.setModel(cloth);
+            }
+          }
+        }
+        else{
+          const sizeCheck = document.getElementById('sizes');
+          if (sizeCheck)sizeCheck.style.display = 'none';
+        }
+        console.log("adidas_hoodie");
+      // };
+    }
+    else{
+      console.log("adidas_hoodie not found");
+    }
+  }
+  
+  function selectBag() {
+    if (bag){
+      console.log("bag found");
+      // bag.onclick = async () => {
+        cloth = 'bag.glb';
+        renderer.setModel(cloth);
+        const hasSizes = bag.dataset.hasSizes === 'true';
+        if (!hasSizes){
+          const sizeCheck = document.getElementById('sizes');
+          if (sizeCheck)sizeCheck.style.display = 'none';
+        }
+        console.log("bag");
+      // };
+    }
+    else{
+      console.log("bag not found");
+    }
+  }
+  
+  function selectClassicOutfit() {
+    if (classic_outfit){
+      console.log("classic_outfit found");
+      // classic_outfit.onclick = async () => {
+        const hasSizes = classic_outfit.dataset.hasSizes === 'true';
+        cloth = 'classic_outfit_M.glb';
+        const m_size = document.getElementById('m-size');
+        const s_size = document.getElementById('s-size');
+        const l_size = document.getElementById('l-size');
+        const xl_size = document.getElementById('xl-size');
+        s_size.classList.remove('active');
+        m_size.classList.add('active');
+        l_size.classList.remove('active');
+        xl_size.classList.remove('active');
+        renderer.setModel(cloth);
+        if (hasSizes){
+          console.log("Classic Outfit has size");
+          const sizeCheck = document.getElementById('sizes');
+          if (sizeCheck)sizeCheck.style.display = 'flex';
+          const s_size = document.getElementById('s-size');
+          if (s_size){
+            s_size.style.display = 'flex';
+            s_size.onclick = async () => {
+              cloth = 'classic_38US.glb';
+              renderer.setModel(cloth);
+              s_size.classList.add('active');
+              m_size.classList.remove('active');
+              l_size.classList.remove('active');
+              xl_size.classList.remove('active');
+            }
+          }
+          const m_size = document.getElementById('m-size');
+          if (m_size){
+            m_size.style.display = 'flex';
+            m_size.onclick = async () => {
+              cloth = 'classic_outfit_M.glb';
+              s_size.classList.remove('active');
+              m_size.classList.add('active');
+              l_size.classList.remove('active');
+              xl_size.classList.remove('active');
+              renderer.setModel(cloth);
+            }
+          }
+          const l_size = document.getElementById('l-size');
+          if (l_size){
+            l_size.style.display = 'flex';
+            l_size.onclick = async () => {
+              cloth = 'classic_outfit_L.glb';
+              s_size.classList.remove('active');
+              m_size.classList.remove('active');
+              l_size.classList.add('active');
+              xl_size.classList.remove('active');
+              renderer.setModel(cloth);
+            }
+          }
+          const xl_size = document.getElementById('xl-size');
+          if (xl_size){
+            xl_size.style.display = 'flex';
+            xl_size.onclick = async () => {
+              cloth = 'classic_outfit_XL.glb';
+              s_size.classList.remove('active');
+              m_size.classList.remove('active');
+              l_size.classList.remove('active');
+              xl_size.classList.add('active');
+              renderer.setModel(cloth);
+            }
+          }
+        }
+        console.log("classic_outfit");
+      // };
+    }
+    else{
+      console.log("classic_outfit not found");
+    }
+  }
+  
+  function selectHogwartsUniform() {
+    if (hogwarts_uniform){
+      console.log("hogwarts_uniform found");
+      // hogwarts_uniform.onclick = async () => {
+        cloth = 'hogwarts_uniform_girl.glb';
+        renderer.setModel(cloth);
+        const hasSizes = hogwarts_uniform.dataset.hasSizes === 'true';
+        if (!hasSizes){
+          const sizeCheck = document.getElementById('sizes');
+          if (sizeCheck)sizeCheck.style.display = 'none';
+        }
+        console.log("hogwarts_uniform_girl");
+      // };
+    }
+    else{
+      console.log("hogwarts_uniform not found");
+    }
+  }
+  
+  function selectMacysOutfit() {
+    if (macys_outfit){
+      console.log("macys_outfit found");
+      // macys_outfit.onclick = async () => {
+        cloth = 'MacysOutfit_m.glb';
+        renderer.setModel(cloth);
+        const hasSizes = macys_outfit.dataset.hasSizes === 'true';
+        if (!hasSizes){
+          const sizeCheck = document.getElementById('sizes');
+          if (sizeCheck)sizeCheck.style.display = 'none';
+        }
+        console.log("macys_outfit");
+      // };
+    }
+    else{
+      console.log("macys_outfit not found");
+    }
+  }
+  
+  function selectVestPuffer() {
+    if (vest_puffer){
+      console.log("vest_puffer found");
+      // vest_puffer.onclick = async () => {
+        cloth = 'Vest_Puffer_Blue.glb';
+        renderer.setModel(cloth);
+        const hasSizes = vest_puffer.dataset.hasSizes === 'true';
+        if (!hasSizes){
+          const sizeCheck = document.getElementById('sizes');
+          if (sizeCheck)sizeCheck.style.display = 'none';
+        }
+        console.log("vest_puffer");
+      // };
+    }
+    else{
+      console.log("vest_puffer not found");
+    }
+  }
+
+  //Enable changing for clicking
+  if (coat){
+    coat.onclick = async () => {
+      currentOutfitIndex = 0;
+      selectCoat();
+    }
+  }
+  if (shein){
+    shein.onclick = async () => {
+      currentOutfitIndex = 1;
+      selectShein();
+    }
+  }
+  if (bomber_shein){
+    bomber_shein.onclick = async () => {
+      currentOutfitIndex = 2;
+      selectBomberShein();
+    }
+  }
+  if (adidas_jacket){
+    adidas_jacket.onclick = async () => {
+      currentOutfitIndex = 0;
+      selectAdidasJacket();
+    }
+  }
+  if (adidas_hoodie){
+    adidas_hoodie.onclick = async () => {
+      currentOutfitIndex = 1;
+      selectAdidasHoodie();
+    }
+  }
+  if (bag){
+    bag.onclick = async () => {
+      currentOutfitIndex = 3;
+      selectBag();
+    }
+  }
+  if (classic_outfit){
+    classic_outfit.onclick = async () => {
+      currentOutfitIndex = 2;
+      selectClassicOutfit();
+    }
+  }
+  if (hogwarts_uniform){
+    hogwarts_uniform.onclick = async () => {
+      currentOutfitIndex = 4;
+      selectHogwartsUniform();
+    }
+  }
+  if (macys_outfit){
+    macys_outfit.onclick = async () => {
+      currentOutfitIndex = 5;
+      selectMacysOutfit();
+    }
+  }
+  if (vest_puffer){
+    vest_puffer.onclick = async () => {
+      currentOutfitIndex = 6;
+      selectVestPuffer();
+    }
+  }
+
+  //Traversing
+
+  const prev = document.getElementById('prev');
+  const next = document.getElementById('next');
+
+  if (prev) {
+    prev.onclick = async() => {
+      changeOutfit('prev');
+    }
+  }
+  if (next) {
+    next.onclick = async() => {
+      changeOutfit('next');
+    }
+  }
+
+  const maleOutfitsChange = ["adidas_jacket_m", "adidas_hoodie_m", "classic_outfit_M"]
+  const femaleOutfitsChange = ["coat", "shein", "bomber_shein_m", "bag", "hogwarts_uniform_girl", "MacysOutfit_m", "Vest_Puffer_Blue"]
+
+  function changeOutfit(direction: "prev" | "next") {
+    const outfits = gender === "female" ? femaleOutfitsChange : maleOutfitsChange;
+    const outfitLength = outfits.length;
+
+    if (direction === "prev") {
+      currentOutfitIndex = (currentOutfitIndex - 1 + outfitLength) % outfitLength;
+    } else {
+      currentOutfitIndex = (currentOutfitIndex + 1) % outfitLength;
+    }
+
+    // console.log(currentOutfitIndex);
+    if (gender === "female"){
+      if (currentOutfitIndex===0){
+        // console.log("Check");
+        selectCoat();
+      }if (currentOutfitIndex===1){
+        // console.log("Check");
+        selectShein();
+      }if (currentOutfitIndex===2){
+        // console.log("Check");
+        selectBomberShein();
+      }if (currentOutfitIndex===3){
+        // console.log("Check");
+        selectBag();
+      }if (currentOutfitIndex===4){
+        // console.log("Check");
+        selectHogwartsUniform();
+      }if (currentOutfitIndex===5){
+        // console.log("Check");
+        selectMacysOutfit();
+      }if (currentOutfitIndex===6){
+        // console.log("Check");
+        selectVestPuffer();
+      }
+    }
+
+    if (gender === "male"){
+      if (currentOutfitIndex===0){
+        // console.log("Check");
+        selectAdidasJacket();
+      }if (currentOutfitIndex===1){
+        // console.log("Check");
+        selectAdidasHoodie();
+      }if (currentOutfitIndex===2){
+        // console.log("Check");
+        selectClassicOutfit();
+      }
+    }
+
+    // cloth = outfits[currentOutfitIndex] + ".glb";
+    // renderer.setModel(cloth);
+  }
+
+  // document.getElementById('shein').addEventListener('click', () => {
+  //   selectButton('shein');
+  //   selectButton('coat');
+  //   selectButton('bomber-shein');
+  //   selectButton('bag');
+  //   selectButton('hogwarts-uniform');
+  //   selectButton('macys-outfit');
+  //   selectButton('vest-puffer');
+  // });
+  // document.getElementById('coat').addEventListener('click', () => {
+  //   selectButton('shein');
+  //   selectButton('coat');
+  //   selectButton('bomber-shein');
+  //   selectButton('bag');
+  //   selectButton('hogwarts-uniform');
+  //   selectButton('macys-outfit');
+  //   selectButton('vest-puffer');
+  // });
+  // document.getElementById('bomber-shein').addEventListener('click', () => {
+  //   selectButton('shein');
+  //   selectButton('coat');
+  //   selectButton('bomber-shein');
+  //   selectButton('bag');
+  //   selectButton('hogwarts-uniform');
+  //   selectButton('macys-outfit');
+  //   selectButton('vest-puffer');
+  // });
+  // document.getElementById('bag').addEventListener('click', () => {
+  //   selectButton('shein');
+  //   selectButton('coat');
+  //   selectButton('bomber-shein');
+  //   selectButton('bag');
+  //   selectButton('hogwarts-uniform');
+  //   selectButton('macys-outfit');
+  //   selectButton('vest-puffer');
+  // });
+  // document.getElementById('hogwarts-uniform').addEventListener('click', () => {
+  //   selectButton('shein');
+  //   selectButton('coat');
+  //   selectButton('bomber-shein');
+  //   selectButton('bag');
+  //   selectButton('hogwarts-uniform');
+  //   selectButton('macys-outfit');
+  //   selectButton('vest-puffer');
+  // });
+  // document.getElementById('macys-outfit').addEventListener('click', () => {
+  //   selectButton('shein');
+  //   selectButton('coat');
+  //   selectButton('bomber-shein');
+  //   selectButton('bag');
+  //   selectButton('hogwarts-uniform');
+  //   selectButton('macys-outfit');
+  //   selectButton('vest-puffer');
+  // });
+  // document.getElementById('vest-puffer').addEventListener('click', () => {
+  //   selectButton('shein');
+  //   selectButton('coat');
+  //   selectButton('bomber-shein');
+  //   selectButton('bag');
+  //   selectButton('hogwarts-uniform');
+  //   selectButton('macys-outfit');
+  //   selectButton('vest-puffer');
+  // });
+  
+  // // Similar event listeners for other buttons
+  
+
+  // function selectButton(buttonId: string) {
+  //   const button = document.getElementById(buttonId) as HTMLButtonElement;
+  //   if (button) {
+  //     button.classList.add('selected'); // Add a class for styling (optional)
+  //     centerButton(button); // Call the centerButton function
+  //   }
+  // }
+  
+
+  // function centerButton(button: HTMLButtonElement) {
+  //   const windowWidth = window.innerWidth;
+  //   // const windowHeight = window.innerHeight;
+  
+  //   const buttonRect = button.getBoundingClientRect();
+  //   const buttonWidth = buttonRect.width;
+  //   // const buttonHeight = buttonRect.height;
+  
+  //   const targetX = windowWidth / 2 - buttonWidth / 2;
+  //   // const targetY = windowHeight / 2 - buttonHeight / 2;
+  
+  //   button.style.transition = 'transform 0.5s ease-in-out'; // Set animation properties
+  //   button.style.transform = `translate(${targetX}px`; // Set initial transform
+  // }
+  
+
   // Camera switch
   const cameraSwitch = document.getElementById(
     "camera-switch"
