@@ -12,52 +12,81 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root" class="full-screen"></div>
-    <button id="camera-switch" class="camera-switch"></button>
+    <!-- <button id="camera-switch" class="camera-switch"></button> -->
     <!-- <div id="courosel" class="carousel"></div> -->
     <div id="dots" class="dots full-screen">
-        <div class="pulse1"></div>
-        <div class="pulse2"></div>
-        <div class="pulse3"></div>
+      <div class="pulse1"></div>
+      <div class="pulse2"></div>
+      <div class="pulse3"></div>
     </div>
-    <div class="gender">
-      <div id="men" class="men">
-        Men
+    <div class="container">
+      <div class="upper">
+        <div class="gender">
+          <div id="men" class="men">Men</div>
+          <div id="women" class="women">Women</div>
+        </div>
+        <div id="sizes" class="sizes">
+          <button id="s-size" class="s-size">S</button>
+          <button id="m-size" class="m-size">M</button>
+          <button id="l-size" class="l-size">L</button>
+          <button id="xl-size" class="xl-size">XL</button>
+        </div>
       </div>
-      <div id="women" class="women">
-        Women
+      <div class="middle">
+        <div id="trav" class="trav">
+          <div id="prev" class="prev" style="color: white;">Prev
+            <img class="white-arrow" src="white_arrow_l.png" alt="">
+          </div>
+          <div id="next" class="next" style="color: white;">Next
+            <img class="white-arrow" src="white_arrow_r.png" alt="">
+          </div>
+        </div>
       </div>
-    </div>
-    <div id="sizes" class="sizes">
-      <button id="s-size" class="s-size">S</button>
-      <button id="m-size" class="m-size">M</button>
-      <button id="l-size" class="l-size">L</button>
-      <button id="xl-size" class="xl-size">XL</button>
-    </div>
-    <div id="trav" class="trav">
-      <button id="prev" class="prev">Prev</button>
-      <button id="next" class="next">Next</button>
-    </div>
-    <div class="button-box">
-        <div id="coat" class="circle-outline" data-has-sizes="false"><button id="coat" class="butn-1 coat"></button></div>
+      <div class="bottom">
+        <div class="button-box">
 
-        <div id="shein" class="circle-outline" data-has-sizes="false"><button id="shein" class="butn-1 shein"></button></div>
+          <div id="macys-outfit" class="circle-outline" data-has-sizes="false">
+            <div id="macys-outfit" class="butn-1 macys-outfit"></div>
+          </div>
 
-        <div id="bomber-shein" class="circle-outline" data-has-sizes="true"><button id="bomber-shein" class="butn-1 bomber-shein"></button></div>
+          <div id="bomber-shein" class="circle-outline" data-has-sizes="true">
+            <div id="bomber-shein" class="butn-1 bomber-shein"></div>
+          </div>
 
-        <div id="adidas-jacket" class="circle-outline" data-has-sizes="true"><button id="adidas-jacket" class="butn-1 adidas-jacket"></button></div>
+          <div id="hogwarts-uniform" class="circle-outline" data-has-sizes="false">
+            <div id="hogwarts-uniform" class="butn-1 hogwarts-uniform"></div>
+          </div>
 
-        <div id="adidas-hoodie" class="circle-outline" data-has-sizes="true"><button id="adidas-hoodie" class="butn-1 adidas-hoodie"></button></div>
+          <div id="coat" class="circle-outline" data-has-sizes="false">
+            <div id="coat" class="butn-1 coat"></div>
+          </div>
 
-        <div id="bag" class="circle-outline" data-has-sizes="false"><button id="bag" class="butn-1 bag"></button></div>
+          <div id="shein" class="circle-outline" data-has-sizes="false">
+            <div id="shein" class="butn-1 shein"></div>
+          </div>
 
-        <div id="classic-outfit" class="circle-outline" data-has-sizes="true"><button id="classic-outfit" class="butn-1 classic-outfit"></button></div>
-        
-        <div id="hogwarts-uniform" class="circle-outline" data-has-sizes="false"><button id="hogwarts-uniform" class="butn-1 hogwarts-uniform"></button></div>
+          <div id="bag" class="circle-outline" data-has-sizes="false">
+            <div id="bag" class="butn-1 bag"></div>
+          </div>
 
-        <div id="macys-outfit" class="circle-outline" data-has-sizes="false"><button id="macys-outfit" class="butn-1 macys-outfit"></button></div>
+          <div id="vest-puffer" class="circle-outline" data-has-sizes="false">
+            <div id="vest-puffer" class="butn-1 vest-puffer"></div>
+          </div>
 
-        <div id="vest-puffer" class="circle-outline" data-has-sizes="false"><button id="vest-puffer" class="butn-1 vest-puffer"></button></div>
+          <div id="classic-outfit" class="circle-outline" data-has-sizes="true">
+            <div id="classic-outfit" class="butn-1 classic-outfit"></div>
+          </div>
 
+          <div id="adidas-hoodie" class="circle-outline" data-has-sizes="true">
+            <div id="adidas-hoodie" class="butn-1 adidas-hoodie"></div>
+          </div>
+
+          <div id="adidas-jacket" class="circle-outline" data-has-sizes="true">
+            <div id="adidas-jacket" class="butn-1 adidas-jacket"></div>
+          </div>
+
+        </div>
+      </div>
     </div>
     <!-- <script src="index.js"></script> -->
   </body>

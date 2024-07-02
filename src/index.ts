@@ -17,8 +17,11 @@ let rear = urlParams.has("rear");
 
 async function main() {
 
+  const windowWidth = window.innerWidth;
+  const windowHeight = window.innerHeight;
+
   //Initialize cloth
-  var cloth = 'coat.glb';
+  var cloth = 'MacysOutfit_m.glb';
 
   let currentOutfitIndex = 0; // Keeps track of the current outfit index
 
@@ -30,6 +33,7 @@ async function main() {
     "pad",
     !rear,
     cloth,
+    // { width: windowWidth, height: windowHeight }
   );
 
   //Gender Switching
@@ -42,11 +46,12 @@ async function main() {
     console.log("Women found");
     women.onclick = async () => {
       gender = 'female';
-      selectCoat();
+      selectMacysOutfit();
+      macys_outfit?.classList.add('active');
       currentOutfitIndex = 0;
       if (gender=='female'){
         women.classList.add('active');
-        men.classList.remove('active');
+        men?.classList.remove('active');
       }
       console.log("Women Clicked");
 
@@ -54,7 +59,7 @@ async function main() {
       hideOutfits();
 
       //Show female outfit
-      const femaleOutfits = [coat, shein, bomber_shein, bag, hogwarts_uniform, macys_outfit, vest_puffer]
+      const femaleOutfits = [macys_outfit, bomber_shein, hogwarts_uniform, coat, shein, bag, vest_puffer]
       showOutfits(femaleOutfits);
     }
   }
@@ -63,11 +68,11 @@ async function main() {
     console.log("Men found");
     men.onclick = async () => {
       gender = 'male';
-      selectAdidasJacket();
+      selectClassicOutfit();
       currentOutfitIndex = 0;
       if (gender=='male'){
         men.classList.add('active');
-        women.classList.remove('active');
+        women?.classList.remove('active');
       }
       console.log("Men Clicked");
 
@@ -75,7 +80,7 @@ async function main() {
       hideOutfits();
 
       //Show male outfit
-      const maleOutfits = [adidas_jacket, adidas_hoodie, classic_outfit]
+      const maleOutfits = [classic_outfit, adidas_hoodie, adidas_jacket]
       showOutfits(maleOutfits);
     }
   }
@@ -113,10 +118,11 @@ async function main() {
   hideOutfits();
 
   //Initialize with female outfit
-  const maleOutfits = [adidas_jacket, adidas_hoodie, classic_outfit]
-  const femaleOutfits = [coat, shein, bomber_shein, bag, hogwarts_uniform, macys_outfit, vest_puffer]
+  const maleOutfits = [classic_outfit, adidas_hoodie, adidas_jacket]
+  const femaleOutfits = [macys_outfit, bomber_shein, hogwarts_uniform, coat, shein, bag, vest_puffer]
   showOutfits(femaleOutfits);
-  women.classList.add('active');
+  women?.classList.add('active');
+  macys_outfit?.classList.add('active');
 
 
   function selectCoat() {
@@ -126,6 +132,13 @@ async function main() {
         // const currentGender = gender;
         // cloth = currentGender === 'female' ? 'coat.glb' : 'classic_outfit_M.glb';
         cloth = 'coat.glb';
+        coat.classList.add('active');
+        shein?.classList.remove('active');
+        bomber_shein?.classList.remove('active');
+        bag?.classList.remove('active');
+        hogwarts_uniform?.classList.remove('active');
+        macys_outfit?.classList.remove('active');
+        vest_puffer?.classList.remove('active');
         renderer.setModel(cloth);
         const hasSizes = coat.dataset.hasSizes === 'true';
         if (!hasSizes){
@@ -147,6 +160,13 @@ async function main() {
         // const currentGender = gender;
         // cloth = currentGender === 'male' ? 'shein.glb' : 'bomber_shein_m.glb';
         cloth = 'shein.glb';
+        coat?.classList.remove('active');
+        shein.classList.add('active');
+        bomber_shein?.classList.remove('active');
+        bag?.classList.remove('active');
+        hogwarts_uniform?.classList.remove('active');
+        macys_outfit?.classList.remove('active');
+        vest_puffer?.classList.remove('active');
         renderer.setModel(cloth);
         const hasSizes = shein.dataset.hasSizes === 'true';
         if (!hasSizes){
@@ -167,6 +187,13 @@ async function main() {
       // bomber_shein.onclick = async () => {
         const hasSizes = bomber_shein.dataset.hasSizes === 'true';
         cloth = 'bomber_shein_m.glb';
+        coat?.classList.remove('active');
+        shein?.classList.remove('active');
+        bomber_shein.classList.add('active');
+        bag?.classList.remove('active');
+        hogwarts_uniform?.classList.remove('active');
+        macys_outfit?.classList.remove('active');
+        vest_puffer?.classList.remove('active');
         const m_size = document.getElementById('m-size');
         const xl_size = document.getElementById('xl-size');
         m_size.classList.add('active');
@@ -221,6 +248,9 @@ async function main() {
       // adidas_jacket.onclick = async () => {
         const hasSizes = adidas_jacket.dataset.hasSizes === 'true';
         cloth = 'adidas_jacket_m.glb';
+        classic_outfit?.classList.remove('active');
+        adidas_hoodie?.classList.remove('active');
+        adidas_jacket.classList.add('active');
         const xl_size = document.getElementById('xl-size');
         const m_size = document.getElementById('m-size');
         m_size.classList.add('active');
@@ -275,6 +305,9 @@ async function main() {
       // adidas_hoodie.onclick = async () => {
         const hasSizes = adidas_hoodie.dataset.hasSizes === 'true';
         cloth = 'adidas_hoodie_m.glb';
+        classic_outfit?.classList.remove('active');
+        adidas_hoodie.classList.add('active');
+        adidas_jacket?.classList.remove('active');
         const m_size = document.getElementById('m-size');
         const xl_size = document.getElementById('xl-size');
         m_size.classList.add('active');
@@ -328,6 +361,13 @@ async function main() {
       console.log("bag found");
       // bag.onclick = async () => {
         cloth = 'bag.glb';
+        coat?.classList.remove('active');
+        shein?.classList.remove('active');
+        bomber_shein?.classList.remove('active');
+        bag.classList.add('active');
+        hogwarts_uniform?.classList.remove('active');
+        macys_outfit?.classList.remove('active');
+        vest_puffer?.classList.remove('active');
         renderer.setModel(cloth);
         const hasSizes = bag.dataset.hasSizes === 'true';
         if (!hasSizes){
@@ -348,6 +388,9 @@ async function main() {
       // classic_outfit.onclick = async () => {
         const hasSizes = classic_outfit.dataset.hasSizes === 'true';
         cloth = 'classic_outfit_M.glb';
+        classic_outfit.classList.add('active');
+        adidas_hoodie?.classList.remove('active');
+        adidas_jacket?.classList.remove('active');
         const m_size = document.getElementById('m-size');
         const s_size = document.getElementById('s-size');
         const l_size = document.getElementById('l-size');
@@ -423,6 +466,13 @@ async function main() {
       console.log("hogwarts_uniform found");
       // hogwarts_uniform.onclick = async () => {
         cloth = 'hogwarts_uniform_girl.glb';
+        coat?.classList.remove('active');
+        shein?.classList.remove('active');
+        bomber_shein?.classList.remove('active');
+        bag?.classList.remove('active');
+        hogwarts_uniform.classList.add('active');
+        macys_outfit?.classList.remove('active');
+        vest_puffer?.classList.remove('active');
         renderer.setModel(cloth);
         const hasSizes = hogwarts_uniform.dataset.hasSizes === 'true';
         if (!hasSizes){
@@ -442,6 +492,13 @@ async function main() {
       console.log("macys_outfit found");
       // macys_outfit.onclick = async () => {
         cloth = 'MacysOutfit_m.glb';
+        coat?.classList.remove('active');
+        shein?.classList.remove('active');
+        bomber_shein?.classList.remove('active');
+        bag?.classList.remove('active');
+        hogwarts_uniform?.classList.remove('active');
+        macys_outfit.classList.add('active');
+        vest_puffer?.classList.remove('active');
         renderer.setModel(cloth);
         const hasSizes = macys_outfit.dataset.hasSizes === 'true';
         if (!hasSizes){
@@ -461,6 +518,13 @@ async function main() {
       console.log("vest_puffer found");
       // vest_puffer.onclick = async () => {
         cloth = 'Vest_Puffer_Blue.glb';
+        coat?.classList.remove('active');
+        shein?.classList.remove('active');
+        bomber_shein?.classList.remove('active');
+        bag?.classList.remove('active');
+        hogwarts_uniform?.classList.remove('active');
+        macys_outfit?.classList.remove('active');
+        vest_puffer.classList.add('active');
         renderer.setModel(cloth);
         const hasSizes = vest_puffer.dataset.hasSizes === 'true';
         if (!hasSizes){
@@ -478,25 +542,25 @@ async function main() {
   //Enable changing for clicking
   if (coat){
     coat.onclick = async () => {
-      currentOutfitIndex = 0;
+      currentOutfitIndex = 3;
       selectCoat();
     }
   }
   if (shein){
     shein.onclick = async () => {
-      currentOutfitIndex = 1;
+      currentOutfitIndex = 4;
       selectShein();
     }
   }
   if (bomber_shein){
     bomber_shein.onclick = async () => {
-      currentOutfitIndex = 2;
+      currentOutfitIndex = 1;
       selectBomberShein();
     }
   }
   if (adidas_jacket){
     adidas_jacket.onclick = async () => {
-      currentOutfitIndex = 0;
+      currentOutfitIndex = 2;
       selectAdidasJacket();
     }
   }
@@ -508,25 +572,25 @@ async function main() {
   }
   if (bag){
     bag.onclick = async () => {
-      currentOutfitIndex = 3;
+      currentOutfitIndex = 5;
       selectBag();
     }
   }
   if (classic_outfit){
     classic_outfit.onclick = async () => {
-      currentOutfitIndex = 2;
+      currentOutfitIndex = 0;
       selectClassicOutfit();
     }
   }
   if (hogwarts_uniform){
     hogwarts_uniform.onclick = async () => {
-      currentOutfitIndex = 4;
+      currentOutfitIndex = 2;
       selectHogwartsUniform();
     }
   }
   if (macys_outfit){
     macys_outfit.onclick = async () => {
-      currentOutfitIndex = 5;
+      currentOutfitIndex = 0;
       selectMacysOutfit();
     }
   }
@@ -553,8 +617,8 @@ async function main() {
     }
   }
 
-  const maleOutfitsChange = ["adidas_jacket_m", "adidas_hoodie_m", "classic_outfit_M"]
-  const femaleOutfitsChange = ["coat", "shein", "bomber_shein_m", "bag", "hogwarts_uniform_girl", "MacysOutfit_m", "Vest_Puffer_Blue"]
+  const maleOutfitsChange = ["classic_outfit_M", "adidas_hoodie_m", "adidas_jacket_m"]
+  const femaleOutfitsChange = ["MacysOutfit_m", "bomber_shein_m", "hogwarts_uniform_girl", "coat", "shein", "bag", "Vest_Puffer_Blue"]
 
   function changeOutfit(direction: "prev" | "next") {
     const outfits = gender === "female" ? femaleOutfitsChange : maleOutfitsChange;
@@ -568,22 +632,22 @@ async function main() {
 
     // console.log(currentOutfitIndex);
     if (gender === "female"){
-      if (currentOutfitIndex===0){
+      if (currentOutfitIndex===3){
         // console.log("Check");
         selectCoat();
-      }if (currentOutfitIndex===1){
-        // console.log("Check");
-        selectShein();
-      }if (currentOutfitIndex===2){
-        // console.log("Check");
-        selectBomberShein();
-      }if (currentOutfitIndex===3){
-        // console.log("Check");
-        selectBag();
       }if (currentOutfitIndex===4){
         // console.log("Check");
-        selectHogwartsUniform();
+        selectShein();
+      }if (currentOutfitIndex===1){
+        // console.log("Check");
+        selectBomberShein();
       }if (currentOutfitIndex===5){
+        // console.log("Check");
+        selectBag();
+      }if (currentOutfitIndex===2){
+        // console.log("Check");
+        selectHogwartsUniform();
+      }if (currentOutfitIndex===0){
         // console.log("Check");
         selectMacysOutfit();
       }if (currentOutfitIndex===6){
@@ -593,13 +657,13 @@ async function main() {
     }
 
     if (gender === "male"){
-      if (currentOutfitIndex===0){
+      if (currentOutfitIndex===2){
         // console.log("Check");
         selectAdidasJacket();
       }if (currentOutfitIndex===1){
         // console.log("Check");
         selectAdidasHoodie();
-      }if (currentOutfitIndex===2){
+      }if (currentOutfitIndex===0){
         // console.log("Check");
         selectClassicOutfit();
       }
@@ -609,98 +673,6 @@ async function main() {
     // renderer.setModel(cloth);
   }
 
-  // document.getElementById('shein').addEventListener('click', () => {
-  //   selectButton('shein');
-  //   selectButton('coat');
-  //   selectButton('bomber-shein');
-  //   selectButton('bag');
-  //   selectButton('hogwarts-uniform');
-  //   selectButton('macys-outfit');
-  //   selectButton('vest-puffer');
-  // });
-  // document.getElementById('coat').addEventListener('click', () => {
-  //   selectButton('shein');
-  //   selectButton('coat');
-  //   selectButton('bomber-shein');
-  //   selectButton('bag');
-  //   selectButton('hogwarts-uniform');
-  //   selectButton('macys-outfit');
-  //   selectButton('vest-puffer');
-  // });
-  // document.getElementById('bomber-shein').addEventListener('click', () => {
-  //   selectButton('shein');
-  //   selectButton('coat');
-  //   selectButton('bomber-shein');
-  //   selectButton('bag');
-  //   selectButton('hogwarts-uniform');
-  //   selectButton('macys-outfit');
-  //   selectButton('vest-puffer');
-  // });
-  // document.getElementById('bag').addEventListener('click', () => {
-  //   selectButton('shein');
-  //   selectButton('coat');
-  //   selectButton('bomber-shein');
-  //   selectButton('bag');
-  //   selectButton('hogwarts-uniform');
-  //   selectButton('macys-outfit');
-  //   selectButton('vest-puffer');
-  // });
-  // document.getElementById('hogwarts-uniform').addEventListener('click', () => {
-  //   selectButton('shein');
-  //   selectButton('coat');
-  //   selectButton('bomber-shein');
-  //   selectButton('bag');
-  //   selectButton('hogwarts-uniform');
-  //   selectButton('macys-outfit');
-  //   selectButton('vest-puffer');
-  // });
-  // document.getElementById('macys-outfit').addEventListener('click', () => {
-  //   selectButton('shein');
-  //   selectButton('coat');
-  //   selectButton('bomber-shein');
-  //   selectButton('bag');
-  //   selectButton('hogwarts-uniform');
-  //   selectButton('macys-outfit');
-  //   selectButton('vest-puffer');
-  // });
-  // document.getElementById('vest-puffer').addEventListener('click', () => {
-  //   selectButton('shein');
-  //   selectButton('coat');
-  //   selectButton('bomber-shein');
-  //   selectButton('bag');
-  //   selectButton('hogwarts-uniform');
-  //   selectButton('macys-outfit');
-  //   selectButton('vest-puffer');
-  // });
-  
-  // // Similar event listeners for other buttons
-  
-
-  // function selectButton(buttonId: string) {
-  //   const button = document.getElementById(buttonId) as HTMLButtonElement;
-  //   if (button) {
-  //     button.classList.add('selected'); // Add a class for styling (optional)
-  //     centerButton(button); // Call the centerButton function
-  //   }
-  // }
-  
-
-  // function centerButton(button: HTMLButtonElement) {
-  //   const windowWidth = window.innerWidth;
-  //   // const windowHeight = window.innerHeight;
-  
-  //   const buttonRect = button.getBoundingClientRect();
-  //   const buttonWidth = buttonRect.width;
-  //   // const buttonHeight = buttonRect.height;
-  
-  //   const targetX = windowWidth / 2 - buttonWidth / 2;
-  //   // const targetY = windowHeight / 2 - buttonHeight / 2;
-  
-  //   button.style.transition = 'transform 0.5s ease-in-out'; // Set animation properties
-  //   button.style.transform = `translate(${targetX}px`; // Set initial transform
-  // }
-  
-
   // Camera switch
   const cameraSwitch = document.getElementById(
     "camera-switch"
@@ -709,7 +681,7 @@ async function main() {
     cameraSwitch.onclick = async () => {
       cameraSwitch.disabled = true;
       rear = !rear;
-      await engine.setup({ size: { width: 1920, height: 1080 }, rear });
+      await engine.setup({ size: { width: windowWidth, height: windowHeight }, rear });
       await engine.start();
       renderer.setMirror(!rear);
       cameraSwitch.disabled = false;
@@ -717,12 +689,22 @@ async function main() {
     };
   }
 
+  // Listen for resize event
+  window.addEventListener("resize", async () => {
+    const newWidth = window.innerWidth;
+    const newHeight = window.innerHeight;
+
+  // Update engine setup size for camera
+    await engine.setup({ size: { width: newWidth, height: newHeight }, rear });
+    await engine.start();
+  });
+
   // Initialization
   await Promise.all([
     engine.addRenderer(renderer),
     engine.init({ token: token, mask: true }), // Mask segmentation (Body Patch) turning on by mask: true
   ]);
-  await engine.setup({ size: { width: 1920, height: 1080 }, rear });
+  await engine.setup({ size: { width: windowWidth, height: windowHeight }, rear });
   await engine.start();
 
   document.getElementById("dots")?.remove();
